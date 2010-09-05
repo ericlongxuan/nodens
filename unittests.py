@@ -32,13 +32,8 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 		f.close()
 		self.assertEqual(roles,shouldBe)
 	
-	def test_constraint(self):
-		runs = {(True,True,True) : None,		# in / out links, whole network
-				(True,True,False) : None,  	# in / out links, ego network
-				(True,False,False) : None, 	# in links only, ego network
-				(False,True,False) : None 	# out links only, ego network
-				}
-				
+	def test_constraint(self):				
+		runs = {}
 		f = open("unit_test_data/bkoff_structural_holes_inlinks_outlinks_wholenet.pickle","r")
 		runs[(True,True,True)] = cPickle.load(f)
 		f.close()
@@ -59,7 +54,7 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 				# currently only checking cIndex
 				cIndexes = dict((n,c["C-Index"]) for n,c in constraints.iteritems())
 				for k,v in cIndexes.iteritems():
-					self.assertAlmostEqual(v,shouldBe[k], msg=msg)
+					self.assertAlmostEqual(v,shouldBe[k], msg=msg+"\t"+str(v)+"\t"+str(shouldBe[k]))
 
 	def test_coreness(self):
 		f = open("unit_test_data/bkoff_coreness.pickle","r")
