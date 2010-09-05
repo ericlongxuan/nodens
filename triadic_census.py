@@ -1,6 +1,5 @@
 """
 Determines the triadic census of a graph
-
 """
 
 __author__ = """Alex Levenson (alex@isnontinvain.com)\nDiederik van Liere (diederik.vanliere@rotman.utoronto.ca)"""

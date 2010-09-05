@@ -32,7 +32,7 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 		f.close()
 		self.assertEqual(roles,shouldBe)
 	
-	def test_constraint(self):				
+	def test_constraint(self):
 		runs = {}
 		f = open("unit_test_data/bkoff_structural_holes_inlinks_outlinks_wholenet.pickle","r")
 		runs[(True,True,True)] = cPickle.load(f)
@@ -62,7 +62,7 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 		shouldBe = [shouldBe[i] for i in sorted(shouldBe.keys())]
 		f.close()
 		
-		cness = coreness.getCoreness(self.directed)
+		cness = coreness.coreness(self.directed)
 		cness = [cness[i] for i in sorted(cness.keys())]
 		r = pearsonr(cness,shouldBe)[0]
 		msg = "Correlation between calculated coreness and correct coreness is too low (" + str(r) + ")"
