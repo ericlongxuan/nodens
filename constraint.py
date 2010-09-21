@@ -1,12 +1,12 @@
 """
-Alex Levenson
-alex@isnotinvain.com	| www.isnotinvain.com
-(c) Reya Group 			| http://www.reyagroup.com
-Friday July 23rd 2010
-
-Provies functions for calculating Burt's constraint on nodes in a social network. 
-See Structural Holes: The Social Structure of Competition By Ronald S. Burt
+Calculates each node's constraint value (structural holes) as described by Ronald Burt
 """
+
+__author__ = """Alex Levenson (alex@isnontinvain.com)"""
+
+#	(C) Reya Group: http://www.reyagroup.com
+#	Alex Levenson (alex@isnotinvain.com)
+#	BSD license.
 
 import networkx as nx
 import numpy
@@ -70,14 +70,30 @@ def _neighborsIndexes(graph,node,includeOutLinks,includeInLinks):
 		
 	return map(lambda x : graph.nodes().index(x),neighbors)
 
-def getConstraints(graph,includeOutLinks=True,includeInLinks=False,wholeNetwork=True):
+def getConstraints(G,includeOutLinks=True,includeInLinks=False,wholeNetwork=True):
 	"""
-	Calculate Burt's constraint on each node in graph.
+	Calculate each node's contraint / structural holes value, as described by Ronal Burt
 	
-	graph: a networkx Graph or DiGraph
-	includeInLinks: whether each ego network should include nodes which point to the ego - this should be False for undirected graphs
-	includeOutLinks: whether each ego network should include nodes which the ego points to - this should be True for undirected graphs
-	wholeNetwork: whether to use the whole ego network for each node, or only the overlap between the current ego's network and the other's ego network
+	Parameters
+	----------	
+	G : graph
+		a networkx Graph or DiGraph
+		
+	includeInLinks : whether each ego network should include nodes which point to the ego - this should be False for undirected graphs
+	
+	includeOutLinks : whether each ego network should include nodes which the ego points to - this should be True for undirected graphs
+	
+	wholeNetwork : whether to use the whole ego network for each node, or only the overlap between the current ego's network and the other's ego network
+	
+	Returns
+	-------
+	constraints : dictionary
+				  dictionary with nodes as keys and dictionaries as values in the form {"C-Index": v,"C-Size": v,"C-Density": v,"C-Hierarchy": v} 
+				  where v is each value
+				  
+	References
+	----------
+	.. [1] Burt, R.S. (2004). Structural holes and good ideas. American Journal of Sociology 110, 349-399
 	"""
 	
 	if not hasattr(graph,"predecessors"):

@@ -30,10 +30,10 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 		f = open("unit_test_data/bkoff_brokerage.pickle","r")
 		shouldBe = cPickle.load(f)
 		f.close()
-		#for node,shouldBes in shouldBe.iteritems():
-		#	for role,count in shouldBes.iteritems():				
-		#		if roles[node][role]!=count:
-		#			print str(node)+": " + str(role) +  " got " + str(roles[node][role]) + " expected " +str(count)
+		for node,shouldBes in shouldBe.iteritems():
+			for role,count in shouldBes.iteritems():				
+				if roles[node][role]!=count:
+					print str(node)+": " + str(role) +  " got " + str(roles[node][role]) + " expected " +str(count)
 		self.assertEqual(roles,shouldBe)
 	
 	def test_constraint(self):
