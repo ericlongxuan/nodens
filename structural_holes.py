@@ -70,7 +70,7 @@ def _neighborsIndexes(graph,node,includeOutLinks,includeInLinks):
 		
 	return map(lambda x : graph.nodes().index(x),neighbors)
 
-def getConstraints(G,includeOutLinks=True,includeInLinks=False,wholeNetwork=True):
+def structural_holes(G,includeOutLinks=True,includeInLinks=False,wholeNetwork=True):
 	"""
 	Calculate each node's contraint / structural holes value, as described by Ronal Burt
 	
@@ -149,17 +149,3 @@ def getConstraints(G,includeOutLinks=True,includeInLinks=False,wholeNetwork=True
 		constraint["C-Index"] = constraint["C-Size"] + constraint["C-Density"] + constraint["C-Hierarchy"] 
 		constraints[node] = constraint
 	return constraints
-
-def writeConstraints(constraints,file):
-	"""
-	Writes constraints to file in CSV format
-	
-	file: a file object or a filepath
-	"""
-	file = nx.utils._get_fh(file, mode='w')
-
-	writer = csv.writer(file)
-	writer.writerow(["Node","Constraint","C-Size","C-Density","C-Hierarchy"])
-	for i in constraints:
-		writer.writerow([i,constraints[i]["C-Index"],constraints[i]["C-Size"],constraints[i]["C-Density"],constraints[i]["C-Hierarchy"]])
-	file.close()

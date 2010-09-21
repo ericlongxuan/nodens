@@ -8,7 +8,7 @@ Friday July 23rd 2010
 import unittest
 import networkx as nx
 import agreement
-import constraint
+import structural_holes
 import coreness
 import brokerage
 import triadic_census
@@ -54,7 +54,7 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 		for type,graph in self.graphs.iteritems():
 			for params,shouldBe in runs.iteritems():
 				msg = "Incorrect calculation of constraint for graph type: " + type + " with parameters: " + str(params)
-				constraints = constraint.getConstraints(graph,*params)
+				constraints = structural_holes.structural_holes(graph,*params)
 				# currently only checking cIndex
 				cIndexes = dict((n,c["C-Index"]) for n,c in constraints.iteritems())
 				for k,v in cIndexes.iteritems():
