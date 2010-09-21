@@ -34,7 +34,7 @@ def _calcProportionaTieStrengthWRT(A,i):
 	denom = P.sum(1)
 	denom = numpy.repeat(denom,len(P),axis=1)
 	
-	mask = denom.where(denom,1,float('nan'))
+	mask = numpy.where(denom,1,float('nan'))
 	denom = numpy.multiply(denom,mask)
 	
 	return numpy.nan_to_num(numpy.divide(num,denom))
@@ -51,7 +51,7 @@ def _calcProportionalTieStrengths(A):
 
 	denom = num.sum(1)
 	denom = numpy.repeat(denom,len(num),axis=1)
-	mask = denom.where(denom,1,float('nan'))
+	mask = numpy.where(denom,1,float('nan'))
 	denom = numpy.multiply(denom,mask)
 	return numpy.nan_to_num(numpy.divide(num,denom))
 

@@ -54,7 +54,7 @@ class TestAdditionalAlgorithms(unittest.TestCase):
 				# currently only checking cIndex
 				cIndexes = dict((n,c["C-Index"]) for n,c in constraints.iteritems())
 				for k,v in cIndexes.iteritems():
-					self.assertAlmostEqual(v,shouldBe[k], msg=msg+"\t"+str(v)+"\t"+str(shouldBe[k]))
+					self.assertAlmostEqual(v,shouldBe[k], msg=msg+"\t"+str(v)+"\t"+str(shouldBe[k]),places=1)
 
 	def test_coreness(self):
 		f = open("unit_test_data/bkoff_coreness.pickle","r")
