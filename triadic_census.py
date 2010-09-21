@@ -54,10 +54,10 @@ def triadic_census(G):
 	# initialze the count to zero
 	count = dict((n,0) for n in TRIAD_NAMES)
 	for vi,v in enumerate(G):
-		for u in set(itertools.chain(G.predecessors(v),G.successors(v))):
+		for u in set(itertools.chain(G.predecessors_iter(v),G.successors_iter(v))):
 			ui = G.nodes().index(u)
 			if ui<=vi : continue
-			neighbors = set(itertools.chain(G.successors(v),G.successors(u),G.predecessors(u),G.predecessors(v)))
+			neighbors = set(itertools.chain(G.successors_iter(v),G.successors_iter(u),G.predecessors_iter(u),G.predecessors_iter(v)))
 			neighbors.remove(u)
 			neighbors.remove(v)
 			
