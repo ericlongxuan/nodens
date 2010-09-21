@@ -22,8 +22,9 @@ def _calcProportionaTieStrengthWRT(A,i):
 	num = A.copy()
 	num = num + num.transpose()
 
-	P = A.copy()
-	mask = numpy.nan_to_num(numpy.divide(P,P))
+	P = A.copy()	
+	mask = numpy.where(P,1,0)
+	  
 	mask = mask[i]
 	mask[0,i] = 1.0
 	P = numpy.multiply(mask,P)
@@ -32,7 +33,9 @@ def _calcProportionaTieStrengthWRT(A,i):
 
 	denom = P.sum(1)
 	denom = numpy.repeat(denom,len(P),axis=1)
-	return numpy.divide(num,denom)
+	mask = denom.where(denom,1,float('nan'))
+	denom = numpy.multiply(denom,mask)
+	return numpy.nan_to_num(numpy.divide(num,denom))
 	
 def _calcProportionalTieStrengths(A):
 	"""
@@ -46,7 +49,9 @@ def _calcProportionalTieStrengths(A):
 
 	denom = num.sum(1)
 	denom = numpy.repeat(denom,len(num),axis=1)
-	return numpy.divide(num,denom)
+	mask = denom.where(denom,1,float('nan'))
+	denom = numpy.multiply(denom,mask)
+	return numpy.nan_to_num(numpy.divide(num,denom))
 
 def _neighborsIndexes(graph,node,includeOutLinks,includeInLinks):
 	"""
